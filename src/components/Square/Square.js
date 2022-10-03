@@ -10,6 +10,7 @@ export default function Square({ content }) {
       justifyContent="center"
       alignItems="center"
       borderRadius="lg"
+      boxShadow="base"
     >
       <span>{content}</span>
     </Box>

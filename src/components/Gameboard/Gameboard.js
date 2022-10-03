@@ -4,11 +4,9 @@ import Square from '../Square/Square';
 
 export default function Gameboard() {
   const { board, setBoard } = useGame();
-  console.log('board', board);
-  //map through the box objects to create a bunch of boxes
   return (
     <div>
-      <SimpleGrid columns={3} spacing={5}>
+      <SimpleGrid columns={3} spacing={5} padding={25}>
         {board.map((box) => (
           <Square key={box.space} {...box} setBoard={setBoard} />
         ))}
