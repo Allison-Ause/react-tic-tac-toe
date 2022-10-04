@@ -19,8 +19,47 @@ const GameContextProvider = ({ children }) => {
   const [active, setActive] = useState(true); //is there an active game currently going on? For reset button check
   const [gameMessage, setGameMessage] = useState('');
 
+  console.log('0', board[0].content);
+  console.log('1', board[1].content);
+  console.log('2', board[2].content);
+
+  const checkConditions = () => {
+    if (
+      //horizontal
+      (board[0].content === board[1].content &&
+        board[0].content === board[2].content &&
+        board[0].content !== '') ||
+      (board[3].content === board[4].content &&
+        board[3].content === board[5].content &&
+        board[3].content !== '') ||
+      (board[6].content === board[7].content &&
+        board[6].content === board[8].content &&
+        board[6].content !== '') ||
+      //diagonal
+      (board[0].content === board[4].content &&
+        board[0].content === board[8].content &&
+        board[0].content !== '') ||
+      (board[2].content === board[4].content &&
+        board[2].content === board[6].content &&
+        board[2].content !== '') ||
+      //vertical
+      (board[0].content === board[3].content &&
+        board[0].content === board[6].content &&
+        board[0].content !== '') ||
+      (board[1].content === board[4].content &&
+        board[1].content === board[7].content &&
+        board[1].content !== '') ||
+      (board[2].content === board[5].content &&
+        board[2].content === board[8].content &&
+        board[2].content !== '')
+    ) {
+      setActive(false);
+    }
+    console.log('active', active);
+  };
+
   const takeTurn = ({ space, content }) => {
-    if (content === '') {
+    if (content === '' && active === true) {
       setBoard((prevState) =>
         prevState.map((square) =>
           square.space === space ? { ...square, content: currentPlayer } : square
@@ -44,6 +83,7 @@ const GameContextProvider = ({ children }) => {
         gameMessage,
         setGameMessage,
         takeTurn,
+        checkConditions,
       }}
     >
       {children}

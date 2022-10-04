@@ -3,12 +3,14 @@ import { useGame } from '../../context/gameContext';
 
 export default function Square({ space, content }) {
   //create an onClick handler that updates setBoard (add back in space and setBoard to passed props)
-  const { takeTurn } = useGame();
+  const { takeTurn, checkConditions } = useGame();
 
   const handleClick = () => {
     console.log('firing');
     takeTurn({ space, content });
   };
+
+  checkConditions();
 
   return (
     <Box
