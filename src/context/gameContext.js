@@ -5,19 +5,32 @@ const GameContext = createContext();
 const GameContextProvider = ({ children }) => {
   //fill with state = useState();
   const [board, setBoard] = useState([
-    { space: 1, content: 'w' },
-    { space: 2, content: 'o' },
-    { space: 3, content: 'r' },
-    { space: 4, content: 'k' },
-    { space: 5, content: 'i' },
-    { space: 6, content: 'n' },
-    { space: 7, content: 'g' },
-    { space: 8, content: '!' },
-    { space: 9, content: '!' },
+    { space: 1, content: '' },
+    { space: 2, content: '' },
+    { space: 3, content: '' },
+    { space: 4, content: '' },
+    { space: 5, content: '' },
+    { space: 6, content: '' },
+    { space: 7, content: '' },
+    { space: 8, content: '' },
+    { space: 9, content: '' },
   ]);
   const [currentPlayer, setCurrentPlayer] = useState('X');
   const [active, setActive] = useState(true); //is there an active game currently going on? For reset button check
   const [gameMessage, setGameMessage] = useState('');
+
+  const takeTurn = ({ space, content }) => {
+    if (content === '') {
+      setBoard((prevState) =>
+        prevState.map((square) =>
+          square.space === space ? { ...square, content: currentPlayer } : square
+        )
+      );
+      if (currentPlayer === 'X') {
+        setCurrentPlayer('O');
+      } else setCurrentPlayer('X');
+    }
+  };
 
   return (
     <GameContext.Provider
@@ -30,6 +43,7 @@ const GameContextProvider = ({ children }) => {
         setActive,
         gameMessage,
         setGameMessage,
+        takeTurn,
       }}
     >
       {children}
