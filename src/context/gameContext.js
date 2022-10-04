@@ -19,10 +19,6 @@ const GameContextProvider = ({ children }) => {
   const [active, setActive] = useState(true); //is there an active game currently going on? For reset button check
   const [gameMessage, setGameMessage] = useState('');
 
-  console.log('0', board[0].content);
-  console.log('1', board[1].content);
-  console.log('2', board[2].content);
-
   const checkConditions = () => {
     if (
       //horizontal
@@ -82,6 +78,24 @@ const GameContextProvider = ({ children }) => {
     }
   };
 
+  const resetGame = () => {
+    setBoard([
+      { space: 1, content: '' },
+      { space: 2, content: '' },
+      { space: 3, content: '' },
+      { space: 4, content: '' },
+      { space: 5, content: '' },
+      { space: 6, content: '' },
+      { space: 7, content: '' },
+      { space: 8, content: '' },
+      { space: 9, content: '' },
+    ]);
+    setActive(true);
+    setGameMessage(`Make your move, ${currentPlayer}!`);
+  };
+
+  // checkConditions();
+
   return (
     <GameContext.Provider
       value={{
@@ -95,6 +109,7 @@ const GameContextProvider = ({ children }) => {
         setGameMessage,
         takeTurn,
         checkConditions,
+        resetGame,
       }}
     >
       {children}

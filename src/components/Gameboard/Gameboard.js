@@ -1,9 +1,14 @@
-import { SimpleGrid } from '@chakra-ui/react';
+import { Button, SimpleGrid } from '@chakra-ui/react';
 import { useGame } from '../../context/gameContext';
 import Square from '../Square/Square';
 
 export default function Gameboard() {
-  const { board } = useGame();
+  const { board, active, resetGame } = useGame();
+
+  const handleClick = () => {
+    resetGame();
+  };
+
   return (
     <div>
       <SimpleGrid columns={3} spacing={5} padding={25}>
@@ -11,7 +16,7 @@ export default function Gameboard() {
           <Square key={box.space} {...box} />
         ))}
       </SimpleGrid>
-      <button>Reset Game</button>
+      {!active && <Button onClick={handleClick}>Reset Game</Button>}
     </div>
   );
 }
