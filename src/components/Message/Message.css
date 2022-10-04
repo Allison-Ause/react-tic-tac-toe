@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Roboto:wght@700&display=swap');
+
+.message {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  height: 100px;
+}

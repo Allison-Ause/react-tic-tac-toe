@@ -1,15 +1,13 @@
 import { Box } from '@chakra-ui/react';
 import { useGame } from '../../context/gameContext';
+import './Square.css';
 
 export default function Square({ space, content }) {
-  //create an onClick handler that updates setBoard (add back in space and setBoard to passed props)
   const { takeTurn } = useGame();
 
   const handleClick = () => {
     takeTurn({ space, content });
   };
-
-  // checkConditions();
 
   return (
     <Box
@@ -23,7 +21,7 @@ export default function Square({ space, content }) {
       boxShadow="base"
       onClick={handleClick}
     >
-      <div>
+      <div className="squares">
         <span>{content}</span>
       </div>
     </Box>
