@@ -20,6 +20,7 @@ const GameContextProvider = ({ children }) => {
   const [gameMessage, setGameMessage] = useState('');
 
   const checkConditions = () => {
+    if (!active) return;
     if (
       //horizontal
       (board[0].content === board[1].content &&
@@ -55,8 +56,10 @@ const GameContextProvider = ({ children }) => {
       } else {
         setGameMessage('Way to go, O! You won!');
       }
+    } else if (!board.filter((square) => square.content === '').length) {
+      setActive(false);
+      setGameMessage("Shucks! It's a Cat's Game.");
     }
-    console.log('active', active);
   };
 
   const takeTurn = ({ space, content }) => {
@@ -91,10 +94,11 @@ const GameContextProvider = ({ children }) => {
       { space: 9, content: '' },
     ]);
     setActive(true);
-    setGameMessage(`Make your move, ${currentPlayer}!`);
+    setGameMessage('Play Again!');
+    setCurrentPlayer('X');
   };
 
-  // checkConditions();
+  checkConditions();
 
   return (
     <GameContext.Provider
