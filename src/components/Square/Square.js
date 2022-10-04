@@ -6,7 +6,6 @@ export default function Square({ space, content }) {
   const { takeTurn, checkConditions } = useGame();
 
   const handleClick = () => {
-    console.log('firing');
     takeTurn({ space, content });
   };
 

@@ -54,20 +54,31 @@ const GameContextProvider = ({ children }) => {
         board[2].content !== '')
     ) {
       setActive(false);
+      if (currentPlayer !== 'X') {
+        setGameMessage('Congrats, X! You did it!');
+      } else {
+        setGameMessage('Way to go, O! You won!');
+      }
     }
     console.log('active', active);
   };
 
   const takeTurn = ({ space, content }) => {
     if (content === '' && active === true) {
-      setBoard((prevState) =>
-        prevState.map((square) =>
-          square.space === space ? { ...square, content: currentPlayer } : square
-        )
+      //duplicate current board (local state)
+      const copiedBoard = board.map((square) =>
+        square.space === space ? { ...square, content: currentPlayer } : { ...square }
       );
+      // set board state to the copied board
+      setBoard(copiedBoard);
+
       if (currentPlayer === 'X') {
         setCurrentPlayer('O');
-      } else setCurrentPlayer('X');
+        setGameMessage('Go, O!');
+      } else {
+        setCurrentPlayer('X');
+        setGameMessage('Your Turn, X!');
+      }
     }
   };
 
