@@ -14,9 +14,19 @@ const GameContextProvider = ({ children }) => {
     { space: 8, content: '' },
     { space: 9, content: '' },
   ]);
-  const [currentPlayer, setCurrentPlayer] = useState('X');
+  const [currentPlayer, setCurrentPlayer] = useState(1);
   const [active, setActive] = useState(true);
   const [gameMessage, setGameMessage] = useState('');
+  const [playerOne, setPlayerOne] = useState('');
+  const [playerTwo, setPlayerTwo] = useState('');
+
+  const selectPlayerOne = (e) => {
+    setPlayerOne(e.target.value);
+  };
+
+  const selectPlayerTwo = (e) => {
+    setPlayerTwo(e.target.value);
+  };
 
   const checkConditions = () => {
     if (!active) return;
@@ -50,10 +60,10 @@ const GameContextProvider = ({ children }) => {
         board[2].content !== '')
     ) {
       setActive(false);
-      if (currentPlayer !== 'X') {
-        setGameMessage('Congrats, X! You did it!');
+      if (currentPlayer !== 1) {
+        setGameMessage(`Congrats ${playerOne} — you rascal! You did it!`);
       } else {
-        setGameMessage('Way to go, O! You won!');
+        setGameMessage(`Way to go ${playerTwo} - you sly dog! You won!`);
       }
     } else if (!board.filter((square) => square.content === '').length) {
       setActive(false);
@@ -65,17 +75,19 @@ const GameContextProvider = ({ children }) => {
     if (content === '' && active === true) {
       //duplicate current board (local state)
       const copiedBoard = board.map((square) =>
-        square.space === space ? { ...square, content: currentPlayer } : { ...square }
+        square.space === space
+          ? { ...square, content: currentPlayer === 1 ? playerOne : playerTwo }
+          : { ...square }
       );
       // set board state to the copied board
       setBoard(copiedBoard);
 
-      if (currentPlayer === 'X') {
-        setCurrentPlayer('O');
-        setGameMessage('Go, O!');
+      if (currentPlayer === 1) {
+        setCurrentPlayer(2);
+        setGameMessage(`Go, ${playerTwo}!`);
       } else {
-        setCurrentPlayer('X');
-        setGameMessage('Your Turn, X!');
+        setCurrentPlayer(1);
+        setGameMessage(`Your Turn, ${playerOne}!`);
       }
     }
   };
@@ -94,7 +106,7 @@ const GameContextProvider = ({ children }) => {
     ]);
     setActive(true);
     setGameMessage('Play Again!');
-    setCurrentPlayer('X');
+    setCurrentPlayer(1);
   };
 
   checkConditions();
@@ -113,6 +125,12 @@ const GameContextProvider = ({ children }) => {
         takeTurn,
         checkConditions,
         resetGame,
+        playerOne,
+        setPlayerOne,
+        selectPlayerOne,
+        playerTwo,
+        setPlayerTwo,
+        selectPlayerTwo,
       }}
     >
       {children}
