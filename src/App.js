@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import Gameboard from './components/Gameboard/Gameboard';
+import Header from './components/Header/Header';
+import Message from './components/Message/Message';
+import Options from './components/Options/Options';
+import Stats from './components/Stats/Stats';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route exact path="/">
+          <Header />
+          <Message />
+          <Options />
+          <Gameboard />
+        </Route>
+        <Route path="/stats" component={Stats} />
+      </Switch>
     </div>
   );
 }

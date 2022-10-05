@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Roboto:wght@700&display=swap');
+
+h1 {
+  font-family: 'Roboto', sans-serif;
+  color: teal;
+  font-size: 25px;
+}
+
+.options {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  font-family: 'Roboto', sans-serif;
+  color: teal;
+}
+
+option {
+  text-align-last: center;
+}
